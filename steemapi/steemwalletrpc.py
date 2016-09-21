@@ -2,7 +2,7 @@ from grapheneapi.grapheneapi import GrapheneAPI
 
 
 class SteemWalletRPC(GrapheneAPI):
-    """ STEEM JSON-HTTP-RPC API
+    """ GOLOS JSON-HTTP-RPC API
 
         This class serves as an abstraction layer for easy use of the
         Grapehene API.

@@ -1,7 +1,7 @@
 .PHONY: clean-pyc clean-build docs
 
 TAG := $(shell git describe master --abbrev=0)
-TAGSTEEM := $(shell git describe master --abbrev=0 | tr "." "-")
+TAGGOLOS := $(shell git describe master --abbrev=0 | tr "." "-")
 
 # 
 clean: clean-build clean-pyc
@@ -47,4 +47,4 @@ dist:
 release: clean check dist steem-changelog git
 
 steem-changelog:
-	git show -s --pretty=format: $(TAG) | tail -n +4 | piston post --file "-" --author xeroc --permlink "python-steem-changelog-$(TAGSTEEM)" --category steem --title "[Changelog] python-steem $(TAG)" --tags python-steem changelog
+	git show -s --pretty=format: $(TAG) | tail -n +4 | piston post --file "-" --author xeroc --permlink "python-steem-changelog-$(TAGGOLOS)" --category steem --title "[Changelog] python-steem $(TAG)" --tags python-steem changelog

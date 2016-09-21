@@ -49,7 +49,7 @@ operations["escrow_release"] = 30
 #operations["fill_order"] = 0
 #operations["comment_payout"] = 0
 
-prefix = "STM"
+prefix = "GLS"
 # prefix = "TST"
 
 class Operation(GrapheneOperation) :
@@ -177,11 +177,11 @@ class Amount() :
         self.amount, self.asset = d.strip().split(" ")
         self.amount = float(self.amount)
 
-        if self.asset == "STEEM":
+        if self.asset == "GOLOS":
             self.precision = 3
-        elif self.asset == "VESTS":
+        elif self.asset == "GESTS":
             self.precision = 6
-        elif self.asset == "SBD":
+        elif self.asset == "GBG":
             self.precision = 3
         else:
             raise Exception("Asset unknown")

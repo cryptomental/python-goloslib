@@ -80,7 +80,7 @@ def start(steem):
                             if not needs_updating:
                                 needs_updating = True
                                 print("Price feed needs to be updated due to change in price.")
-                                print("Current witness price: {} $/STEEM   Current exchange price: {} $/STEEM".format(last_witness_price, steem_price))
+                                print("Current witness price: {} $/GOLOS   Current exchange price: {} $/GOLOS".format(last_witness_price, steem_price))
                         else:
                             if needs_updating and cur_time - last_witness_update_time < 24 * 60 * 60:
                                 needs_updating = False
@@ -100,7 +100,7 @@ def start(steem):
                             first_time = False
                             print("Block number {} at time: {}".format(r["head_block_number"], r["time"]))
                             if needs_updating:
-                                print("Price feed still needs updating to {} $/STEEM".format(steem_price))
+                                print("Price feed still needs updating to {} $/GOLOS".format(steem_price))
                             futures["exchange_price"] = asyncio.async(get_steem_price(session))
                             futures["witness_price"] = asyncio.async(get_witness_price_feed(steem, account))
                             last_time = cur_time

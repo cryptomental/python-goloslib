@@ -16,7 +16,7 @@ VERSION = '0.2.2'
 
 setup(name='steem',
       version=VERSION,
-      description='Python library for STEEM',
+      description='Python library for GOLOS',
       long_description=open('README.md').read(),
       download_url='https://github.com/xeroc/python-steem/tarball/' + VERSION,
       author='Fabian Schuh',

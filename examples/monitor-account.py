@@ -21,7 +21,7 @@ rpc = SteemNodeRPC("ws://localhost:8090", "", "")
     Last Block that you have process in your backend.
     Processing will continue at `last_block + 1`
 """
-last_block = 160900
+last_block = 0
 
 """
     Deposit account name to monitor

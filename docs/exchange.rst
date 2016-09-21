@@ -20,8 +20,8 @@ Quickstart
         wif             = ""
 
     steem = SteemExchange(Config)
-    pprint(steem.buy(10, "SBD", 100))
-    pprint(steem.sell(10, "SBD", 100))
+    pprint(steem.buy(10, "GBG", 100))
+    pprint(steem.sell(10, "GBG", 100))
     pprint(steem.cancel("24432422"))
     pprint(steem.returnTicker())
     pprint(steem.return24Volume())
@@ -32,7 +32,7 @@ Quickstart
     pprint(steem.returnMarketHistory(300))
     pprint(steem.get_lowest_ask())
     pprint(steem.get_higest_bid())
-    pprint(steem.transfer(10, "SBD", "fabian", "foobar"))
+    pprint(steem.transfer(10, "GBG", "fabian", "foobar"))
 
 Definition
 ===========

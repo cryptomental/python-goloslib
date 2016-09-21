@@ -17,7 +17,7 @@ def print_help():
 def main() :
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=("Post files into STEEM\n\n"
+        description=("Post files into GOLOS\n\n"
                 "This script goes into the posts directory that "
                 "contains subfolders named after the authors.\n"
                 "This subfolders contain markdown (*.md) files "

@@ -74,28 +74,28 @@ class Testcases(unittest.TestCase) :
     def test_create_account(self):
         op = transactions.Account_create(
             **{'creator': 'xeroc',
-               'fee': '10.000 STEEM',
+               'fee': '10.000 GOLOS',
                'json_metadata': '',
-               'memo_key': 'STM6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
+               'memo_key': 'GLS6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
                'new_account_name': 'fsafaasf',
                'owner': {'account_auths': [],
-                         'key_auths': [['STM5jYVokmZHdEpwo5oCG3ES2Ca4VYzy6tM8pWWkGdgVnwo2mFLFq',
+                         'key_auths': [['GLS5jYVokmZHdEpwo5oCG3ES2Ca4VYzy6tM8pWWkGdgVnwo2mFLFq',
                                         1], [
-                                       'STM6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
+                                       'GLS6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
                                        1]],
                          'weight_threshold': 1},
                'active': {'account_auths': [],
-                          'key_auths': [['STM6pbVDAjRFiw6fkiKYCrkz7PFeL7XNAfefrsREwg8MKpJ9VYV9x',
+                          'key_auths': [['GLS6pbVDAjRFiw6fkiKYCrkz7PFeL7XNAfefrsREwg8MKpJ9VYV9x',
                                         1], [
-                                        'STM6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
+                                        'GLS6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
                                         1]],
                           'weight_threshold': 1},
                'posting': {'account_auths': [],
-                           'key_auths': [['STM8CemMDjdUWSV5wKotEimhK6c4dY7p2PdzC2qM1HpAP8aLtZfE7',
+                           'key_auths': [['GLS8CemMDjdUWSV5wKotEimhK6c4dY7p2PdzC2qM1HpAP8aLtZfE7',
                                           1], [
-                                         'STM6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
+                                         'GLS6zLNtyFVToBsBZDsgMhgjpwysYVbsQD6YhP3kRkQhANUB4w7Qp',
                                          1], [
-                                         'STM6pbVDAjRFiw6fkiKYCrkz7PFeL7XNAfefrsREwg8MKpJ9VYV9x',
+                                         'GLS6pbVDAjRFiw6fkiKYCrkz7PFeL7XNAfefrsREwg8MKpJ9VYV9x',
                                          1
                                          ]],
                            'weight_threshold': 1}}
@@ -132,7 +132,7 @@ class Testcases(unittest.TestCase) :
         op = transactions.Transfer(
             **{"from": "foo",
                "to": "baar",
-               "amount": "111.110 STEEM",
+               "amount": "111.110 GOLOS",
                "memo": "Fooo"
                }
         )
@@ -158,7 +158,7 @@ class Testcases(unittest.TestCase) :
         op = transactions.Transfer_to_vesting(
             **{"from": "foo",
                "to": "baar",
-               "amount": "111.110 STEEM",
+               "amount": "111.110 GOLOS",
                }
         )
         ops = [transactions.Operation(op)]
@@ -182,7 +182,7 @@ class Testcases(unittest.TestCase) :
         op = transactions.Transfer_to_vesting(
             **{"from": "foo",
                "to": "baar",
-               "amount": "111.110 STEEM",
+               "amount": "111.110 GOLOS",
                }
         )
         ops = [transactions.Operation(op)]
@@ -206,8 +206,8 @@ class Testcases(unittest.TestCase) :
         op = transactions.Limit_order_create(
             **{"owner": "",
                "orderid": 0,
-               "amount_to_sell": "0.000 STEEM",
-               "min_to_receive": "0.000 STEEM",
+               "amount_to_sell": "0.000 GOLOS",
+               "min_to_receive": "0.000 GOLOS",
                "fill_or_kill": False,
                "expiration": "2016-12-31T23:59:59"
                }
@@ -235,22 +235,22 @@ class Testcases(unittest.TestCase) :
                 "posting": {
                     "weight_threshold": 1,
                     "account_auths": [["xeroc", 1], ["fabian", 1]],
-                    "key_auths": [["STM6KChDK2sns9MwugxkoRvPEnyjuTxHN5upGsZ1EtanCffqBVVX3", 1],
-                                  ["STM7sw22HqsXbz7D2CmJfmMwt9rimtk518dRzsR1f8Cgw52dQR1pR", 1]]
+                    "key_auths": [["GLS6KChDK2sns9MwugxkoRvPEnyjuTxHN5upGsZ1EtanCffqBVVX3", 1],
+                                  ["GLS7sw22HqsXbz7D2CmJfmMwt9rimtk518dRzsR1f8Cgw52dQR1pR", 1]]
                 },
                 "owner": {
                     "weight_threshold": 1,
                     "account_auths": [],
-                    "key_auths": [["STM7sw22HqsXbz7D2CmJfmMwt9rimtk518dRzsR1f8Cgw52dQR1pR", 1],
-                                  ["STM6KChDK2sns9MwugxkoRvPEnyjuTxHN5upGsZ1EtanCffqBVVX3", 1]]
+                    "key_auths": [["GLS7sw22HqsXbz7D2CmJfmMwt9rimtk518dRzsR1f8Cgw52dQR1pR", 1],
+                                  ["GLS6KChDK2sns9MwugxkoRvPEnyjuTxHN5upGsZ1EtanCffqBVVX3", 1]]
                 },
                 "active": {
                     "weight_threshold": 2,
                     "account_auths": [],
-                    "key_auths": [["STM6KChDK2sns9MwugxkoRvPEnyjuTxHN5upGsZ1EtanCffqBVVX3", 1],
-                                  ["STM7sw22HqsXbz7D2CmJfmMwt9rimtk518dRzsR1f8Cgw52dQR1pR", 1]]
+                    "key_auths": [["GLS6KChDK2sns9MwugxkoRvPEnyjuTxHN5upGsZ1EtanCffqBVVX3", 1],
+                                  ["GLS7sw22HqsXbz7D2CmJfmMwt9rimtk518dRzsR1f8Cgw52dQR1pR", 1]]
                 },
-                "memo_key": "STM728uLvStTeAkYJsQefks3FX8yfmpFHp8wXw3RY3kwey2JGDooR",
+                "memo_key": "GLS728uLvStTeAkYJsQefks3FX8yfmpFHp8wXw3RY3kwey2JGDooR",
                 "json_metadata": ""}
         )
         ops = [transactions.Operation(op)]
@@ -330,7 +330,7 @@ class Testcases(unittest.TestCase) :
         op = transactions.Convert(
             **{"owner": "xeroc",
                "requestid": 2342343235,
-               "amount": "100.000 SBD"}
+               "amount": "100.000 GBG"}
         )
         ops = [transactions.Operation(op)]
         tx = transactions.Signed_Transaction(
