@@ -8,11 +8,9 @@ try:
 except ImportError:
     raise ImportError("Missing dependency: aiohttp")
 
-from steemapi.steemasyncclient import SteemAsyncClient, Config
+from golosapi.golosasyncclient import GolosAsyncClient, Config
 import re
 import dateutil.parser
-from pprint import pprint
-
 
 account = "witness-account"  # Replace with  account you wish to monitor
 
@@ -111,5 +109,5 @@ def start(steem):
             old_futures = {}
 
 if __name__ == "__main__":
-    steem = SteemAsyncClient(Config(config_file="async_monitor_config.yml"))
-    steem.run([start])  # If multiple coroutines were specified in the array, they would run concurrently
+    golos = GolosAsyncClient(Config(config_file="async_monitor_config.yml"))
+    golos.run([start])  # If multiple coroutines were specified in the array, they would run concurrently

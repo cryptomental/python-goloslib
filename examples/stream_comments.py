@@ -1,7 +1,7 @@
-from steemapi.steemnoderpc import SteemNodeRPC
+from golosapi.golosnoderpc import GolosNodeRPC
 from pprint import pprint
 
-rpc = SteemNodeRPC("wss://steemit.com/ws")
+rpc = GolosNodeRPC("wss://node.golos.ws")
 
-for a in rpc.stream("comment", start=1893850):
+for a in rpc.stream("comment"):
     pprint(a)

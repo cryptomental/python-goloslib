@@ -11,4 +11,4 @@ witness:
 wallet: # Only one of witness or wallet must be specified. But both can be also.
    url: ws://localhost:8091/
    # user and password are again optional just like above.
-    
+
