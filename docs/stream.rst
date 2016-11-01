@@ -1,5 +1,5 @@
 ***********
-SteemStream
+GolosStream
 ***********
 
 This module allows to stream blocks and individual operations from the
@@ -12,10 +12,10 @@ This example code shows all comments starting at block 1893850.
 
 .. code-block:: python
 
-   from steemapi.steemnoderpc import SteemNodeRPC
+   from golosapi.golosnoderpc import GolosNodeRPC
    from pprint import pprint
 
-   rpc = SteemNodeRPC("wss://steemit.com/ws")
+   rpc = GolosNodeRPC("wss://golosit.com/ws")
 
    for a in rpc.stream("comment", start=1893850):
        pprint(a)
@@ -23,5 +23,5 @@ This example code shows all comments starting at block 1893850.
 Definition
 ===========
 
-.. autoclass:: steemapi.steemnoderpc.SteemNodeRPC
+.. autoclass:: golosapi.golosnoderpc.GolosNodeRPC
     :members: stream

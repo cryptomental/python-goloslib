@@ -13,7 +13,7 @@ We load the class for manual transaction construction via:
 
 .. code-block:: python
 
-    from steembase import transactions
+    from golosbase import transactions
 
 Construction
 ############
