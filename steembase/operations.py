@@ -47,7 +47,7 @@ operations["decline_voting_rights_operation"] = 36
 operations["reset_account_operation"] = 37
 operations["set_reset_account_operation"] = 38
 
-prefix = "GLS"
+prefix = "STM"
 # prefix = "TST"
 
 
@@ -174,11 +174,11 @@ class Amount():
         self.amount, self.asset = d.strip().split(" ")
         self.amount = float(self.amount)
 
-        if self.asset == "GOLOS":
+        if self.asset == "STEEM":
             self.precision = 3
-        elif self.asset == "GESTS":
+        elif self.asset == "VESTS":
             self.precision = 6
-        elif self.asset == "GBG":
+        elif self.asset == "SBD":
             self.precision = 3
         else:
             raise Exception("Asset unknown")

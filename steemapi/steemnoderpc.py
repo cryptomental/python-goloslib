@@ -116,7 +116,7 @@ class SteemNodeRPC(GrapheneWebsocketRPC):
         """
         # Let's find out how often blocks are generated!
         config = self.get_config()
-        block_interval = config["GOLOSIT_BLOCK_INTERVAL"]
+        block_interval = config["STEEMIT_BLOCK_INTERVAL"]
 
         if not start:
             props = self.get_dynamic_global_properties()

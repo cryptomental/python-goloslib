@@ -10,7 +10,7 @@ import struct
 " This class and the methods require python3 "
 assert sys.version_info[0] == 3, "graphenelib requires python3"
 
-prefix = "GLS"
+prefix = "STM"
 
 
 def get_shared_secret(priv, pub) :

@@ -14,7 +14,7 @@ from .chains import known_chains
 
 timeformat = '%Y-%m-%dT%H:%M:%S%Z'
 
-chain = "GOLOS"
+chain = "STEEM"
 # chain = "TEST"
 
 

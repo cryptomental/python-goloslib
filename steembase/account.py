@@ -47,14 +47,14 @@ class Address(GrapheneAddress):
 
         :param str address: Base58 encoded address (defaults to ``None``)
         :param str pubkey: Base58 encoded pubkey (defaults to ``None``)
-        :param str prefix: Network prefix (defaults to ``GLS``)
+        :param str prefix: Network prefix (defaults to ``STM``)
 
         Example::
 
-           Address("GLSFN9r6VYzBK8EKtMewfNbfiGCr56pHDBFi")
+           Address("STMFN9r6VYzBK8EKtMewfNbfiGCr56pHDBFi")
 
     """
-    def __init__(self, address=None, pubkey=None, prefix="GLS"):
+    def __init__(self, address=None, pubkey=None, prefix="STM"):
         super(Address, self).__init__(address, pubkey, prefix)
 
 
@@ -62,11 +62,11 @@ class PublicKey(GraphenePublicKey, Address):
     """ This class deals with Public Keys and inherits ``Address``.
 
         :param str pk: Base58 encoded public key
-        :param str prefix: Network prefix (defaults to ``GLS``)
+        :param str prefix: Network prefix (defaults to ``STM``)
 
         Example:::
 
-           PublicKey("GLS6UtYWWs3rkZGV8JA86qrgkG6tyFksgECefKE1MiH4HkLD8PFGL")
+           PublicKey("STM6UtYWWs3rkZGV8JA86qrgkG6tyFksgECefKE1MiH4HkLD8PFGL")
 
         .. note:: By default, graphene-based networks deal with **compressed**
                   public keys. If an **uncompressed** key is required, the
@@ -75,7 +75,7 @@ class PublicKey(GraphenePublicKey, Address):
                       PublicKey("xxxxx").unCompressed()
 
     """
-    def __init__(self, pk, prefix="GLS"):
+    def __init__(self, pk, prefix="STM"):
         super(PublicKey, self).__init__(pk, prefix)
 
 
@@ -84,7 +84,7 @@ class PrivateKey(GraphenePrivateKey, PublicKey):
         constructs two instances of ``PublicKey``:
 
         :param str wif: Base58check-encoded wif key
-        :param str prefix: Network prefix (defaults to ``GLS``)
+        :param str prefix: Network prefix (defaults to ``STM``)
 
         Example:::
 
@@ -102,5 +102,5 @@ class PrivateKey(GraphenePrivateKey, PublicKey):
             Instance of ``Address`` using uncompressed key.
 
     """
-    def __init__(self, wif=None, prefix="GLS"):
+    def __init__(self, wif=None, prefix="STM"):
         super(PrivateKey, self).__init__(wif, prefix)

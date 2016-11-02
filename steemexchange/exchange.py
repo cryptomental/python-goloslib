@@ -11,6 +11,10 @@ import random
 log = logging.getLogger(__name__)
 
 
+class NoWalletException(Exception):
+    pass
+
+
 class InvalidWifKey(Exception):
     pass
 
@@ -79,7 +83,7 @@ class ExampleConfig() :
     witness_password      = ""
 
     #: The account used here
-    account               = None
+    account               = "fabian"
     wif                   = None
 
 
@@ -116,8 +120,8 @@ class SteemExchange(SteemClient) :
                 account = "xeroc"
 
             steem = SteemExchange(Config)
-            pprint(steem.buy(10, "GBG", 100))
-            pprint(steem.sell(10, "GBG", 100))
+            pprint(steem.buy(10, "SBD", 100))
+            pprint(steem.sell(10, "SBD", 100))
             pprint(steem.returnTicker())
             pprint(steem.return24Volume())
             pprint(steem.returnOrderBook(2))
@@ -132,11 +136,11 @@ class SteemExchange(SteemClient) :
     myAccount = None
 
     # Available Assets
-    assets = ["GOLOS", "GBG"]
+    assets = ["STEEM", "SBD"]
 
     def __init__(self, config, **kwargs) :
         # Defaults:
-        self.prefix = "GLS"
+        self.prefix = "STM"
 
         #: Safe mode
         if "safe_mode" in kwargs:
@@ -191,8 +195,7 @@ class SteemExchange(SteemClient) :
             expiration=expiration,
             operations=ops
         )
-        if self.config.wif:
-            transaction = transaction.sign([self.config.wif])
+        transaction = transaction.sign([self.config.wif])
         transaction = transactions.JsonObj(transaction)
         if not (self.safe_mode):
             self.ws.broadcast_transaction(transaction, api="network_broadcast")
@@ -202,10 +205,7 @@ class SteemExchange(SteemClient) :
         """ Returns the structure containing all data relevant to the
             account specified in the configuration
         """
-        if self.config.account:
-            return self.ws.get_account(self.config.account)
-        else:
-            return None
+        return self.ws.get_account(self.config.account)
 
     def formatTimeFromNow(self, secs=0):
         """ Properly Format Time that is `x` seconds in the future
@@ -222,26 +222,26 @@ class SteemExchange(SteemClient) :
         """ Return the properties of the assets tradeable on the
             network.
 
-            :param str symbol: Symbol to get the data for (i.e. GOLOS, GBG, GESTS)
+            :param str symbol: Symbol to get the data for (i.e. STEEM, SBD, VESTS)
         """
-        if symbol == "GOLOS":
-            return {"symbol": "GOLOS",
+        if symbol == "STEEM":
+            return {"symbol": "STEEM",
                     "precision": 3
                     }
-        elif symbol == "GBG":
-            return {"symbol": "GBG",
+        elif symbol == "SBD":
+            return {"symbol": "SBD",
                     "precision": 3
                     }
-        elif symbol == "GESTS":
-            return {"symbol": "GESTS",
+        elif symbol == "VESTS":
+            return {"symbol": "VESTS",
                     "precision": 6
                     }
         else:
             return None
 
     def _get_assets(self, quote):
-        """ Given the `quote` asset, return base. If quote is GBG, then
-            base is GOLOS and vice versa.
+        """ Given the `quote` asset, return base. If quote is SBD, then
+            base is STEEM and vice versa.
         """
         assets = self.assets.copy()
         assets.remove(quote)
@@ -256,28 +256,28 @@ class SteemExchange(SteemClient) :
             * ``latest``: Price of the order last filled
             * ``lowest_ask``: Price of the lowest ask
             * ``highest_bid``: Price of the highest bid
-            * ``sbd_volume``: Volume of GBG
-            * ``steem_volume``: Volume of GOLOS
+            * ``sbd_volume``: Volume of SBD
+            * ``steem_volume``: Volume of STEEM
             * ``percent_change``: 24h change percentage (in %)
 
             .. note::
 
                 All prices returned by ``returnTicker`` are in the **reveresed**
-                orientation as the market. I.e. in the GBG:GOLOS market, prices are
-                GOLOS per GBG. That way you can multiply prices with `1.05` to
+                orientation as the market. I.e. in the SBD:STEEM market, prices are
+                STEEM per SBD. That way you can multiply prices with `1.05` to
                 get a +5%.
 
             Sample Output:
 
             .. code-block:: js
 
-                {'GBG:GOLOS': {'highest_bid': 3.3222341219615097,
+                {'SBD:STEEM': {'highest_bid': 3.3222341219615097,
                                'latest': 1000000.0,
                                'lowest_ask': 3.0772668228742615,
                                'percent_change': -0.0,
                                'sbd_volume': 108329611.0,
                                'steem_volume': 355094043.0},
-                 'GOLOS:GBG': {'highest_bid': 0.30100226633322913,
+                 'STEEM:SBD': {'highest_bid': 0.30100226633322913,
                                'latest': 0.0,
                                'lowest_ask': 0.3249636958897082,
                                'percent_change': 0.0,
@@ -288,13 +288,13 @@ class SteemExchange(SteemClient) :
         """
         ticker = {}
         t = self.ws.get_ticker(api="market_history")
-        ticker["GOLOS:GBG"] = {'highest_bid': float(t['highest_bid']),
+        ticker["STEEM:SBD"] = {'highest_bid': float(t['highest_bid']),
                                'latest': float(t["latest"]),
                                'lowest_ask': float(t["lowest_ask"]),
                                'percent_change': float(t["percent_change"]),
                                'sbd_volume': t["sbd_volume"],
                                'steem_volume': t["steem_volume"]}
-        ticker["GBG:GOLOS"] = {'highest_bid': 1.0 / float(t['highest_bid']),
+        ticker["SBD:STEEM"] = {'highest_bid': 1.0 / float(t['highest_bid']),
                                'latest': 1.0 / (float(t["latest"]) or 1e-6),
                                'lowest_ask': 1.0 / float(t["lowest_ask"]),
                                'percent_change': -float(t["percent_change"]),
@@ -317,48 +317,60 @@ class SteemExchange(SteemClient) :
                 'steem_volume': v["steem_volume"]}
 
     def returnOrderBook(self, limit=25):
-        """ Returns the order book for the GBG/GOLOS markets in both orientations.
+        """ Returns the order book for the SBD/STEEM markets in both orientations.
 
             :param int limit: Limit the amount of orders (default: 25)
-
-            Market is GBG:GOLOS and prices are GOLOS:MARKET
 
             Sample output:
 
             .. code-block:: js
 
-                {'asks': [{'price': 3.086436224481787,
-                           'gbg': 318547,
-                           'golos': 983175},
-                          {'price': 3.086429621198315,
-                           'gbg': 2814903,
-                           'golos': 8688000}],
-                 'bids': [{'price': 3.0864376216446257,
-                           'gbg': 545133,
-                           'golos': 1682519},
-                          {'price': 3.086440512632327,
-                           'gbg': 333902,
-                           'golos': 1030568}]},
+                {'SBD:STEEM': {'asks': [{'price': 3.086436224481787,
+                                         'sbd': 318547,
+                                         'steem': 983175},
+                                        {'price': 3.086429621198315,
+                                         'sbd': 2814903,
+                                         'steem': 8688000}],
+                               'bids': [{'price': 3.0864376216446257,
+                                         'sbd': 545133,
+                                         'steem': 1682519},
+                                        {'price': 3.086440512632327,
+                                         'sbd': 333902,
+                                         'steem': 1030568}]},
+                 'STEEM:SBD': {'asks': [{'price': '0.32399827090802763',
+                                         'sbd': 318547,
+                                         'steem': 983175},
+                                        {'price': '0.32399896408839779',
+                                         'sbd': 2814903,
+                                         'steem': 8688000}],
+                               'bids': [{'price': '0.32399812424109331',
+                                         'sbd': 545133,
+                                         'steem': 1682519},
+                                        {'price': '0.32399782076056660',
+                                         'sbd': 333902,
+                                         'steem': 1030568}]}}
         """
         orders = self.ws.get_order_book(limit, api="market_history")
-        r = {"asks":[], "bids":[]}
+        r = {}
+        r["STEEM:SBD"] = orders
+        r["SBD:STEEM"] = {"bids": [], "asks": []}
         for side in ["bids", "asks"]:
             for o in orders[side]:
-                r[side].append({
-                    'price': float(o["price"]),
-                    'sbd': o["gbg"] / 10 ** 3,
-                    'steem': o["golos"] / 10 ** 3,
+                r["SBD:STEEM"][side].append({
+                    'price': 1.0 / float(o["price"]),
+                    'sbd': o["sbd"],
+                    'steem': o["steem"],
                 })
         return r
 
     def returnBalances(self):
-        """ Return GBG and GOLOS balance of the account
+        """ Return SBD and STEEM balance of the account
         """
         # riverhead - July 19. 2016
         balances = {}
         result = self.ws.get_account(self.config.account)
-        balances["GOLOS"] = result['balance']
-        balances["GBG"]   = result['sbd_balance']
+        balances["STEEM"] = result['balance']
+        balances["SBD"]   = result['sbd_balance']
         return balances
 
     def returnOpenOrders(self):
@@ -433,16 +445,16 @@ class SteemExchange(SteemClient) :
             method will return the order creating (signed) transaction.
 
             :param number amount: Amount of ``quote`` to buy
-            :param str quote_symbol: GOLOS, or GBG
+            :param str quote_symbol: STEEM, or SBD
             :param float price: price denoted in ``base``/``quote``
             :param number expiration: (optional) expiration time of the order in seconds (defaults to 7 days)
             :param bool killfill: flag that indicates if the order shall be killed if it is not filled (defaults to False)
 
-            Prices/Rates are denoted in 'base', i.e. the GOLOS:GBG market
-            is priced in GBG per GOLOS.
+            Prices/Rates are denoted in 'base', i.e. the STEEM:SBD market
+            is priced in SBD per STEEM.
 
-            **Example:** in the GBG:GOLOS market, a price of 300 means
-            a GBG is worth 300 GOLOS
+            **Example:** in the SBD:STEEM market, a price of 300 means
+            a SBD is worth 300 STEEM
         """
         if self.safe_mode :
             log.warn("Safe Mode enabled! Not broadcasting anything!")
@@ -463,7 +475,7 @@ class SteemExchange(SteemClient) :
                 killfill,
                 expiration,
                 not (self.safe_mode))
-        else:
+        elif self.config.wif:
             s = {"owner": self.myAccount["name"],
                  "orderid": random.getrandbits(32),
                  "amount_to_sell": '{:.{prec}f} {asset}'.format(
@@ -480,6 +492,8 @@ class SteemExchange(SteemClient) :
             order = transactions.Limit_order_create(**s)
             ops = [transactions.Operation(order)]
             transaction = self.executeOps(ops)
+        else:
+            raise NoWalletException()
 
         return transaction
 
@@ -494,16 +508,16 @@ class SteemExchange(SteemClient) :
             method will return the order creating (signed) transaction.
 
             :param number amount: Amount of ``quote`` to sell
-            :param str quote_symbol: GOLOS, or GBG
+            :param str quote_symbol: STEEM, or SBD
             :param float price: price denoted in ``base``/``quote``
             :param number expiration: (optional) expiration time of the order in seconds (defaults to 7 days)
             :param bool killfill: flag that indicates if the order shall be killed if it is not filled (defaults to False)
 
-            Prices/Rates are denoted in 'base', i.e. the GOLOS:GBG market
-            is priced in GBG per GOLOS.
+            Prices/Rates are denoted in 'base', i.e. the STEEM:SBD market
+            is priced in SBD per STEEM.
 
-            **Example:** in the GBG:GOLOS market, a price of 300 means
-            a GBG is worth 300 GOLOS
+            **Example:** in the SBD:STEEM market, a price of 300 means
+            a SBD is worth 300 STEEM
         """
         if self.safe_mode :
             log.warn("Safe Mode enabled! Not broadcasting anything!")
@@ -524,7 +538,7 @@ class SteemExchange(SteemClient) :
                 killfill,
                 expiration,
                 not (self.safe_mode))
-        else:
+        elif self.config.wif:
             s = {"owner": self.myAccount["name"],
                  "orderid": random.getrandbits(32),
                  "amount_to_sell": '{:.{prec}f} {asset}'.format(
@@ -541,6 +555,8 @@ class SteemExchange(SteemClient) :
             order = transactions.Limit_order_create(**s)
             ops = [transactions.Operation(order)]
             transaction = self.executeOps(ops)
+        else:
+            raise NoWalletException()
 
         return transaction
 
@@ -558,13 +574,15 @@ class SteemExchange(SteemClient) :
                 self.config.account,
                 orderNumber,
                 not self.safe_mode)
-        else:
+        elif self.config.wif:
             s = {"owner": self.myAccount["name"],
                  "orderid": orderNumber,
                  }
             order = transactions.Limit_order_cancel(**s)
             ops = [transactions.Operation(order)]
             transaction = self.executeOps(ops)
+        else:
+            raise NoWalletException()
 
         return transaction
 
@@ -575,8 +593,8 @@ class SteemExchange(SteemClient) :
 
             .. code-block:: js
 
-                {'GBG:GOLOS': [{'price': 3.08643564387293, 'sbd': 320863, 'steem': 990323}],
-                 'GOLOS:GBG': [{'price': '0.32399833185738391',
+                {'SBD:STEEM': [{'price': 3.08643564387293, 'sbd': 320863, 'steem': 990323}],
+                 'STEEM:SBD': [{'price': '0.32399833185738391',
                                 'sbd': 320863,
                                 'steem': 990323}]}
         """
@@ -593,8 +611,8 @@ class SteemExchange(SteemClient) :
 
             .. code-block:: js
 
-                {'GBG:GOLOS': [{'price': 3.08643564387293, 'sbd': 320863, 'steem': 990323}],
-                 'GOLOS:GBG': [{'price': '0.32399833185738391',
+                {'SBD:STEEM': [{'price': 3.08643564387293, 'sbd': 320863, 'steem': 990323}],
+                 'STEEM:SBD': [{'price': '0.32399833185738391',
                                 'sbd': 320863,
                                 'steem': 990323}]}
         """
@@ -605,10 +623,10 @@ class SteemExchange(SteemClient) :
         return r
 
     def transfer(self, amount, asset, recepient, memo=""):
-        """ Transfer GBG or GOLOS to another account
+        """ Transfer SBD or STEEM to another account
 
             :param float amount: Amount to transfer
-            :param str asset: Asset to transfer ("GBG" or "GOLOS")
+            :param str asset: Asset to transfer ("SBD" or "STEEM")
             :param str recepient: Recepient of the transfer
             :param str memo: (Optional) Memo attached to the transfer
         """
@@ -636,7 +654,7 @@ class SteemExchange(SteemClient) :
                 ),
                 memo,
                 not (self.safe_mode))
-        else:
+        elif self.config.wif:
             op = transactions.Transfer(
                 **{"from": self.config.account,
                    "to": recepient,
@@ -650,5 +668,7 @@ class SteemExchange(SteemClient) :
             )
             ops = [transactions.Operation(op)]
             transaction = self.executeOps(ops)
+        else:
+            raise NoWalletException()
 
         return transaction
