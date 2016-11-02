@@ -1,7 +1,7 @@
-Python Library for Steem
+Python Library for Golos
 ========================
 
-Python 3 library for Steem!
+Python 3 library for Golos!
 
 **Stable**
 
@@ -26,12 +26,12 @@ Installation
 Install with `pip`:
 
     $ sudo apt-get install libffi-dev libssl-dev python-dev
-    $ pip3 install steem
+    $ pip3 install golos
 
 Manual installation:
 
-    $ git clone https://github.com/xeroc/python-steem/
-    $ cd python-steem
+    $ git clone https://github.com/GolosChain/python-goloslib
+    $ cd python-goloslib
     $ python3 setup.py install --user
 
 Upgrade
@@ -42,7 +42,7 @@ Upgrade
 Additional dependencies
 -----------------------
 
-`steemapi.steemasyncclient`:
+`golosapi.golosasyncclient`:
  * `asyncio==3.4.3`
  * `pyyaml==3.11`
 
@@ -50,7 +50,7 @@ Documentation
 -------------
 
 Thanks to readthedocs.io, the documentation can be viewed
-[online](http://python-steem.readthedocs.io/en/latest/)
+[online](http://python-goloslib.readthedocs.io/en/latest/)
 
 Documentation is written with the help of sphinx and can be compile to
 html with:

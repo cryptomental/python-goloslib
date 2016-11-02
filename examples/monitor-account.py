@@ -1,21 +1,20 @@
-from steemapi.steemnoderpc import SteemNodeRPC
-from pprint import pprint
+from golosapi.golosnoderpc import GolosNodeRPC
 import time
 
 """
-   Connection Parameters to steemd daemon.
+   Connection Parameters to golosd daemon.
 
-   Start the steemd daemon with the rpc-endpoint parameter:
+   Start the golosd daemon with the rpc-endpoint parameter:
 
-      ./programs/steemd/steemd --rpc-endpoint=127.0.0.1:8092
+      ./programs/golosd/golosd --rpc-endpoint=127.0.0.1:8092
 
     This opens up a RPC port (e.g. at 8092). Currently, authentication
     is not yet available, thus, we recommend to restrict access to
     localhost. Later we will allow authentication via username and
-    passpword (both empty now).
+    password (both empty now).
 
 """
-rpc = SteemNodeRPC("ws://localhost:8090", "", "")
+rpc = GolosNodeRPC("ws://localhost:8090", "", "")
 
 """
     Last Block that you have process in your backend.
@@ -75,7 +74,7 @@ if __name__ == '__main__':
     # We are going to loop indefinitely
     while True:
 
-        # Get chain properies to identify the
+        # Get chain properties to identify the
         # head/last reversible block
         props = rpc.get_dynamic_global_properties()
 

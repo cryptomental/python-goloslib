@@ -14,18 +14,18 @@ except LookupError:
 
 VERSION = '0.2.3'
 
-setup(name='steem',
+setup(name='golos',
       version=VERSION,
       description='Python library for GOLOS',
       long_description=open('README.md').read(),
-      download_url='https://github.com/xeroc/python-steem/tarball/' + VERSION,
+      download_url='https://github.com/GolosChain/python-goloslib/tarball/' + VERSION,
       author='Fabian Schuh',
       author_email='<Fabian@BitShares.eu>',
       maintainer='Fabian Schuh',
       maintainer_email='<Fabian@BitShares.eu>',
-      url='http://www.github.com/xeroc/python-steem',
-      keywords=['steem', 'library', 'api', 'rpc'],
-      packages=["steemapi", "steembase", "steemexchange"],
+      url='https://github.com/GolosChain/python-goloslib',
+      keywords=['golos', 'steem', 'library', 'api', 'rpc'],
+      packages=["golosapi", "golosbase", "golosexchange", "steemapi", "steembase", "steemexchange"],
       classifiers=['License :: OSI Approved :: MIT License',
                    'Operating System :: OS Independent',
                    'Programming Language :: Python :: 3',

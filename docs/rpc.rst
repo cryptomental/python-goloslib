@@ -1,9 +1,9 @@
 **************
-SteemWalletRPC
+GolosWalletRPC
 **************
 
 .. warning:: This is a low level class that can be used in combination with
-             ``SteemClient``. Do not use this class unless you know what
+             ``GolosClient``. Do not use this class unless you know what
              you are doing!
 
 We now need to distinguish functionalities. If we want to only access the
@@ -21,5 +21,5 @@ cli_wallet that has the required private keys imported. We here assume:
 Definition
 ##########
 
-.. autoclass:: steemapi.steemwalletrpc.SteemWalletRPC
+.. autoclass:: golosapi.goloswalletrpc.GolosWalletRPC
     :members: _confirm, rpcexec, __getattr__

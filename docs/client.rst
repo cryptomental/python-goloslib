@@ -1,15 +1,15 @@
 ***************
-Steem Client
+Golos Client
 ***************
 
 Configuration
 #############
 
-.. autoclass:: steemapi.steemclient.ExampleConfig
+.. autoclass:: golosapi.golosclient.ExampleConfig
     :members:
 
-SteemClient
+GolosClient
 ##############
 
-.. autoclass:: steemapi.steemclient.SteemClient
+.. autoclass:: golosapi.golosclient.GolosClient
     :members:

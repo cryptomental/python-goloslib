@@ -1,12 +1,12 @@
-from steemapi.steemclient import SteemClient
+from golosapi.golosclient import GolosClient
 from prettytable import PrettyTable
 from textwrap import wrap
 
 
-class Config():
-    wallet_host           = "localhost"
-    wallet_port           = 8092
-    witness_url           = "ws://localhost:8090"
+class Config(object):
+    wallet_host = "localhost"
+    wallet_port = 8092
+    witness_url = "wss://node.golos.ws"
 
 
 def dumpMessages(contents):
@@ -23,6 +23,6 @@ def dumpMessages(contents):
     print(t.get_string())
 
 if __name__ == '__main__':
-    client = SteemClient(Config)
+    client = GolosClient(Config)
     state = client.rpc.get_state("")
     dumpMessages(state["content"])

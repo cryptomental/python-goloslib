@@ -18,7 +18,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8 steemapi/ steembase/
+	flake8 golosapi/ golosbase/
 
 test:
 	python3 setup.py test
@@ -44,7 +44,7 @@ dist:
 	python3 setup.py bdist --format=zip upload
 	python3 setup.py bdist_wheel upload
 
-release: clean check dist steem-changelog git
+release: clean check dist golos-changelog git
 
-steem-changelog:
-	git show -s --pretty=format: $(TAG) | tail -n +4 | piston post --file "-" --author xeroc --permlink "python-steem-changelog-$(TAGGOLOS)" --category steem --title "[Changelog] python-steem $(TAG)" --tags python-steem changelog
+golos-changelog:
+	git show -s --pretty=format: $(TAG) | tail -n +4 | piston post --file "-" --author xeroc --permlink "python-goloslib-changelog-$(TAGGOLOS)" --category golos --title "[Changelog] python-golos $(TAG)" --tags python-goloslib changelog

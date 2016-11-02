@@ -1,30 +1,30 @@
-from steemapi.steemclient import SteemClient
+from golosapi.golosclient import GolosClient
 from pprint import pprint
-from prettytable import PrettyTable
-from textwrap import wrap
 from os import walk, path
 import argparse
 
 
-class Config():
-    wallet_host           = "localhost"
-    wallet_port           = 8092
-    witness_url           = "ws://localhost:8090"
+class Config(object):
+    wallet_host = "localhost"
+    wallet_port = 8092
+    witness_url = "ws://localhost:8090"
+
 
 def print_help():
     pass
 
-def main() :
+
+def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=("Post files into GOLOS\n\n"
-                "This script goes into the posts directory that "
-                "contains subfolders named after the authors.\n"
-                "This subfolders contain markdown (*.md) files "
-                "from which \n"
-                "   * the file name is used as permlink\n"
-                "   * the first line of content is subject\n"
-                "   * the rest of the content is body\n")
+                     "This script goes into the posts directory that "
+                     "contains subfolders named after the authors.\n"
+                     "This subfolders contain markdown (*.md) files "
+                     "from which \n"
+                     "   * the file name is used as permlink\n"
+                     "   * the first line of content is subject\n"
+                     "   * the rest of the content is body\n")
     )
     parser.add_argument('--author',
                         type=str,
@@ -49,9 +49,9 @@ def main() :
         raise Exception("Directory %s does not exist!" % args.dir)
         
     try:
-        client = SteemClient(Config)
+        client = GolosClient(Config)
     except:
-        raise Exception("Coudn't open conenction to wallet!")
+        raise Exception("Couldn't open connection to wallet!")
 
     if client.wallet.is_locked():
         raise Exception("Wallet is locked! Please unlock it!")

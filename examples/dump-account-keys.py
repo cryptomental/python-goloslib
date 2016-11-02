@@ -1,6 +1,5 @@
-from steemapi.steemwalletrpc import SteemWalletRPC
-from pprint import pprint
-import time
+from golosapi.goloswalletrpc import GolosWalletRPC
+
 
 def dumpkeys(account, typ):
     name = account["name"]
@@ -13,7 +12,7 @@ def dumpkeys(account, typ):
         except:
             pass
 
-rpc = SteemWalletRPC("localhost", 8092, "", "")
+rpc = GolosWalletRPC("localhost", 8092, "", "")
 accounts = rpc.list_my_accounts()
 
 assert rpc.is_locked, "Wallet is locked"

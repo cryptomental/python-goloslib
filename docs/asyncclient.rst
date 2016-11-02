@@ -1,15 +1,15 @@
 *************************
-Asynchronous Steem Client
+Asynchronous Golos Client
 *************************
 
 Configuration
 #############
 
-.. autoclass:: steemapi.steemasyncclient.Config
+.. autoclass:: golosapi.golosasyncclient.Config
     :members:
 
 SteemAsyncClient
 ################
 
-.. autoclass:: steemapi.steemasyncclient.SteemAsyncClient
+.. autoclass:: golosapi.golosasyncclient.GolosAsyncClient
     :members:

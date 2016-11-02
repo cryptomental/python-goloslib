@@ -1,8 +1,9 @@
-Welcome to python-steem's documentation!
+Welcome to python-goloslib's documentation!
 ===============================================
-
-Python-Steem Libraries
+Python-goloslib Libraries
 -------------------------
+
+Python-goloslib libraries extend python-steemlib libraries to GOLOS blockchain.
 
 .. toctree::
    :maxdepth: 3
